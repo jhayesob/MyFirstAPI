@@ -13,6 +13,7 @@ Endpoint /users accepts "GET" and "POST" requests, endpoint /payments accepts on
 To observe the functionality of this API, configure your API platform to http://127.0.0.1:5000 and specify one of the available endpoints.
 
 The following script of requests can be followed to observe program effectiveness:
+
 -> http://127.0.0.1:5000/users POST {
     "Username": "Student1",
     "Password": "Password1",
@@ -20,6 +21,7 @@ The following script of requests can be followed to observe program effectivenes
     "DoB": "2000-06-05",
     "Credit Card Number": "0123456789012345"
 }
+
 -> http://127.0.0.1:5000/users POST {
     "Username": "jhayesobrien1",
     "Password": "Password1",
@@ -27,11 +29,13 @@ The following script of requests can be followed to observe program effectivenes
     "DoB": "2000-06-05",
     "Credit Card Number": "0123456789012346"
 }
+
 -> http://127.0.0.1:5000/users POST {
     "Username": "jhayesobrienN0bank",
     "Password": "Password1",
     "Email": "jhayesobrien@gmail.com",
     "DoB": "2000-06-05"}
+    
 -> http://127.0.0.1:5000/payments POST {
     "Credit Card Number": "0123456789012345",
     "Amount": "200"
