@@ -6,10 +6,11 @@ import unittest
 
 app = Flask(__name__)
 
-users = []  # using program variable to store user data
+users = []   # In-program variable to store user data. No need for DB on this specific project
 
 
 def username_valid(username_str):
+    # checking if incoming username data is of valid format: ensuring string is alphanumeric and not containing spaces
     if ' ' not in username_str and username_str.isalnum():
         return True
     else:
@@ -17,6 +18,8 @@ def username_valid(username_str):
 
 
 def username_already_exists(username_str):
+    # checking if a username comprising the same string as the incoming data already exists in program data
+    # loops through all current users, checks their name against incoming string.
     for usr in users:
         if usr['Username'] == username_str:
             return True
@@ -24,7 +27,8 @@ def username_already_exists(username_str):
 
 
 def password_valid_format(password_str):
-    # maybe: '(?=.*[A-Z])(?=.*\d).{8,}'
+    # checking if newly entered password string contains appropriate number of uppercase, digit and lowercase chars.
+    # python regular expression notation used to check string
     password_regex = r'^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$'
     if len(password_str) >= 8 and re.fullmatch(password_regex, password_str):
         return True
@@ -33,6 +37,8 @@ def password_valid_format(password_str):
 
 
 def email_valid(email_str):
+    # checking if newly entered email string is in a valid email format
+    # python regular expression notation used to check string
     email_regex_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if re.fullmatch(email_regex_pattern, email_str):
         return True
@@ -41,15 +47,22 @@ def email_valid(email_str):
 
 
 def dob_valid_format(dob_str):
+    # check: is Date of Birth supplied in correct ISO format
+    # ISO format = yyyy-mm-dd
+    # Python features in built functions to support this operation
     try:
         datetime.fromisoformat(dob_str)  # .replace('Z', '+00:00')
-    except:
+    except:  # should provide exact form of exception that would be thrown
         return False
     return True
 
 
 def age_over_18(dob):
-    # iso format string = yyyy-mm-dd
+    # check: using provided user DoB, is their age above 18?
+
+    # in-build modules exist for this type of operation, but for fear of errors surrounding leap years, a more
+    # bare-bones approach was implemented
+
     now = datetime.now()
     date_today = now.strftime("%Y-%m-%d")
     if int(date_today[:4]) - int(dob[:4]) > 18:
